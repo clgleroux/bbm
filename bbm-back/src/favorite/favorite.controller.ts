@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { FavoriteService } from './favorite.service';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
-import { UpdateFavoriteDto } from './dto/update-favorite.dto';
 
 @Controller('favorite')
 export class FavoriteController {
@@ -21,8 +12,13 @@ export class FavoriteController {
   }
 
   @Get()
-  findAll() {
-    return this.favoriteService.findAll();
+  async findAll() {
+    return await this.favoriteService.findAll();
+  }
+
+  @Get('current-week')
+  async findAllCurrentWeek() {
+    return await this.favoriteService.findAllCurrentWeek();
   }
 
   @Get(':id')
@@ -30,16 +26,24 @@ export class FavoriteController {
     return this.favoriteService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateFavoriteDto: UpdateFavoriteDto,
-  ) {
-    return this.favoriteService.update(+id, updateFavoriteDto);
+  @Get('movie/:id')
+  findAllUserByMovieId(@Param('id') id: string) {
+    return this.favoriteService.findAllUserByMovieId(+id);
+  }
+
+  @Get('user/:id')
+  findAllMovieByUserId(@Param('id') id: string) {
+    return this.favoriteService.findAllMovieByUserId(+id);
+  }
+
+  @Get('result/current-week')
+  async findResultCurrentWeek() {
+    return await this.favoriteService.findResultCurrentWeek();
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.favoriteService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.favoriteService.remove(+id);
+    return { id };
   }
 }

@@ -15,11 +15,20 @@ export class UserService {
     const findUserEmail = await this.userRepository.findOne({
       where: { email: createUserDto.email },
     });
-    if (!findUserEmail) {
+
+    if (findUserEmail) {
       throw new Error('Unique email');
     }
 
-    return await this.userRepository.create({ createUserDto });
+    if (!this.validateEmail(createUserDto.email)) {
+      throw new Error('Email not valid');
+    }
+
+    return await this.userRepository.create({
+      email: createUserDto.email,
+      pseudo: createUserDto.pseudo,
+      dateOfBirth: createUserDto.dateOfBirth,
+    });
   }
 
   async findAll() {
@@ -30,11 +39,22 @@ export class UserService {
     return await this.userRepository.findByPk(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    // TODO : Sécuriser
+
+    return await this.userRepository.update(
+      {
+        email: updateUserDto.email,
+        pseudo: updateUserDto.pseudo,
+        dateOfBirth: updateUserDto.dateOfBirth,
+      },
+      { where: { id } },
+    );
   }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
+  validateEmail(email): boolean {
+    const re =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    return re.test(email);
+  }
 }

@@ -3,23 +3,31 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { InjectModel } from '@nestjs/sequelize';
+import { OMDbService } from 'src/service/omdb.service';
 
 @Injectable()
 export class MovieService {
   constructor(
     @InjectModel(Movie)
     private movieRepository: typeof Movie,
+    private readonly omdbService: OMDbService,
   ) {}
 
-  async create(createMovieDto: CreateMovieDto) {
-    const findOMDbMovie = await this.movieRepository.findOne({
-      where: { imdbID: createMovieDto.imdbID },
-    });
+  async createByIMDbId(createMovieDto: CreateMovieDto) {
+    const findOMDbMovie = await this.findOneByIMDbId(createMovieDto.imdbID);
     if (findOMDbMovie) {
       throw new Error('Movie existing');
     }
 
-    return await this.movieRepository.create({ createMovieDto });
+    const movieIMDb = (
+      await this.omdbService.getMovieById(createMovieDto.imdbID)
+    ).data;
+
+    return await this.movieRepository.create({
+      imdbID: createMovieDto.imdbID,
+      title: movieIMDb.Title,
+      poster: movieIMDb.Poster,
+    });
   }
 
   async findAll() {
@@ -38,8 +46,17 @@ export class MovieService {
     });
   }
 
-  update(id: number, updateMovieDto: UpdateMovieDto) {
-    return `This action updates a #${id} movie`;
+  async update(id: number, updateMovieDto: UpdateMovieDto) {
+    // TODO : Sécuriser
+
+    return await this.movieRepository.update(
+      {
+        imdbID: updateMovieDto.imdbID,
+        title: updateMovieDto.title,
+        poster: updateMovieDto.poster,
+      },
+      { where: { id } },
+    );
   }
 
   remove(id: number) {

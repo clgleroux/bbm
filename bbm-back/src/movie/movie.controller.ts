@@ -20,8 +20,8 @@ export class MovieController {
   ) {}
 
   @Post()
-  create(@Body() createMovieDto: CreateMovieDto) {
-    return this.movieService.create(createMovieDto);
+  async create(@Body() createMovieDto: CreateMovieDto) {
+    return await this.movieService.createByIMDbId(createMovieDto);
   }
 
   @Get()
