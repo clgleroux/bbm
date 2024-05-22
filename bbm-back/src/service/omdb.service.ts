@@ -12,7 +12,7 @@ export class OMDbService {
     return await axios.get(this.url + `&i=${id}`);
   }
 
-  async getMovie(param: { s?: string; page?: number }) {
+  async getMovies(param: { s?: string; page?: number }) {
     return (
       await axios.get(
         `${this.url}&type=movie&s=${param.s}&page=${param.page ?? 1}`,

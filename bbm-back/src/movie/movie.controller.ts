@@ -38,7 +38,7 @@ export class MovieController {
   @Get('omdb/all')
   async findAllOMDbMovie(@Query() search: { searchTitleMovie: string }) {
     console.log(search);
-    const infoMovie = await this.omdbService.getMovie({
+    const infoMovie = await this.omdbService.getMovies({
       s: search.searchTitleMovie,
     });
     const movies = [...infoMovie.Search];
@@ -48,7 +48,7 @@ export class MovieController {
 
     for (let index = 2; index <= number; index++) {
       promises.push(
-        this.omdbService.getMovie({ s: search.searchTitleMovie, page: index }),
+        this.omdbService.getMovies({ s: search.searchTitleMovie, page: index }),
       );
     }
 
