@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService, shortOMDb } from '../service/movie.service';
-import { HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

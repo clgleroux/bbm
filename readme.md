@@ -22,6 +22,12 @@ Liste des films
 /list
 ```
 
+Recherche par titre = 'nom'
+
+```
+/list?s=nom
+```
+
 ### Details
 
 Details d'un film
