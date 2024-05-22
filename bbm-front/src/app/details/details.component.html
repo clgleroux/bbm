@@ -1,0 +1,25 @@
+@if (movie) {
+<div class="mt-10 px-2">
+  <h1 class="text-center text-xl">{{ movie.Title }}</h1>
+
+  <div class="flex flex-col md:flex-row">
+    <div class="md:w-4/6 order-2 md:order-1">
+      <div>Genre : {{ movie.Genre }}</div>
+      <div>Year : {{ movie.Year }}</div>
+      <div>Type : {{ movie.Type }}</div>
+
+      @if (isShowMore) {
+      <div>Runtime : {{ movie.Runtime }}</div>
+      <div>Actors : {{ movie.Actors }}</div>
+      }
+
+      <div (click)="showMore()" class="cursor-pointer btn-show-more">
+        Show {{ isShowMore ? "Less" : "More" }}
+      </div>
+    </div>
+    <div class="md:w-2/6 order-1 md:order-2 flex justify-center">
+      <img src="{{ movie.Poster }}" />
+    </div>
+  </div>
+</div>
+}
