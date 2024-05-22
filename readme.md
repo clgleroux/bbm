@@ -39,7 +39,9 @@ Details d'un film
 ## BACK
 
 NestJS@10
+
 API : [OMDb API](https://www.omdbapi.com/)
+
 ![Schema BDD](schema_bdd.png)
 
 ### Users
