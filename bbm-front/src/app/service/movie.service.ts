@@ -43,8 +43,10 @@ export class MovieService {
   urlBack = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
-  getAllOMDb(): Observable<shortOMDb[]> {
-    return this.http.get<shortOMDb[]>(`${this.urlBack}/movie/omdb/all`);
+  getAllOMDb(param?: { searchTitleMovie: string }): Observable<shortOMDb[]> {
+    return this.http.get<shortOMDb[]>(`${this.urlBack}/movie/omdb/all`, {
+      params: param,
+    });
   }
 
   getOneOMDb(id: string): Observable<longOMDb> {

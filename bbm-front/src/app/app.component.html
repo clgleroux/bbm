@@ -2,7 +2,7 @@
   <div class="flex justify-between p-4">
     <span>BBM</span>
     <div class="flex gap-8">
-      <a routerLink="/list">List</a>
+      <a routerLink="/list" [queryParams]="{ s: 'pirate' }">List</a>
       <a routerLink="/contest">Contest</a>
     </div>
   </div>
