@@ -1,20 +1,8 @@
 @if (resultContestCurrent) {
-<div class="flex gap-3 mt-10">
-  <div *ngIf="resultContestCurrent[1]" class="mt-10">
-    <div class="card">
-      <div class="badge badge-argent"><span>2</span></div>
-      <div class="text-center">
-        {{ resultContestCurrent[1].movie.title }} ({{
-          resultContestCurrent[1].MovieCount
-        }})
-      </div>
-      <div>
-        <img [src]="resultContestCurrent[1].movie.poster" width="100" />
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="resultContestCurrent[0]">
+<div
+  class="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-3 mt-10"
+>
+  <div *ngIf="resultContestCurrent[0]" class="order-1 sm:order-2">
     <div class="card">
       <div class="badge"><span>1</span></div>
       <div class="text-center">
@@ -28,7 +16,21 @@
     </div>
   </div>
 
-  <div *ngIf="resultContestCurrent[2]" class="mt-20">
+  <div *ngIf="resultContestCurrent[1]" class="order-2 sm:order-1 sm:mt-10">
+    <div class="card">
+      <div class="badge badge-argent"><span>2</span></div>
+      <div class="text-center">
+        {{ resultContestCurrent[1].movie.title }} ({{
+          resultContestCurrent[1].MovieCount
+        }})
+      </div>
+      <div>
+        <img [src]="resultContestCurrent[1].movie.poster" width="100" />
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="resultContestCurrent[2]" class="order-3 sm:mt-20">
     <div class="card">
       <div class="badge badge-bronze"><span>3</span></div>
       <div class="text-center">
