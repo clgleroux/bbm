@@ -1,1 +1,77 @@
-<p>contest works!</p>
+@if (resultContestCurrent) {
+<div class="flex gap-3 mt-10">
+  <div *ngIf="resultContestCurrent[1]" class="mt-10">
+    <div class="card">
+      <div class="badge badge-argent"><span>2</span></div>
+      <div class="text-center">
+        {{ resultContestCurrent[1].movie.title }} ({{
+          resultContestCurrent[1].MovieCount
+        }})
+      </div>
+      <div>
+        <img [src]="resultContestCurrent[1].movie.poster" width="100" />
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="resultContestCurrent[0]">
+    <div class="card">
+      <div class="badge"><span>1</span></div>
+      <div class="text-center">
+        {{ resultContestCurrent[0].movie.title }} ({{
+          resultContestCurrent[0].MovieCount
+        }})
+      </div>
+      <div>
+        <img [src]="resultContestCurrent[0].movie.poster" width="100" />
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="resultContestCurrent[2]" class="mt-20">
+    <div class="card">
+      <div class="badge badge-bronze"><span>3</span></div>
+      <div class="text-center">
+        {{ resultContestCurrent[2].movie.title }} ({{
+          resultContestCurrent[2].MovieCount
+        }})
+      </div>
+      <div>
+        <img [src]="resultContestCurrent[2].movie.poster" width="100" />
+      </div>
+    </div>
+  </div>
+</div>
+
+@for (item of resultContestCurrent | slice:3; track $index) {
+<div>
+  {{ $index + 4 }} : {{ item.movie.title }} - <b>{{ item.MovieCount }}</b>
+</div>
+}
+
+<button (click)="showDetails()" class="btn-primary my-3">
+  {{ isShowDetails ? "Hidden" : "Show" }} Details
+</button>
+@if (isShowDetails) {
+<div>
+  <div class="grid grid-cols-5">
+    @for (item of contestCurrent; track $index) {
+
+    <div>{{ item.id }}</div>
+    <div>{{ item.user.pseudo }}</div>
+    <div>
+      {{ item.movie.title }}
+    </div>
+    <img [src]="item.movie.poster" width="50" />
+    <div>
+      <button (click)="deleteFavorite(item.id)" class="btn-delete">
+        Delete
+      </button>
+    </div>
+
+    }
+  </div>
+</div>
+} } @else {
+<p>Aucun vote</p>
+}

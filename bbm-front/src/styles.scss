@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-primary {
+  display: inline-block;
+
+  background-color: #dbeafe;
+  padding: 2px 4px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #c8d7e9;
+  }
+}
+
+.btn-delete {
+  display: inline-block;
+
+  background-color: #fedbdb;
+  padding: 2px 4px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #e9c8c8;
+  }
+}

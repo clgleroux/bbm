@@ -1,0 +1,31 @@
+.card {
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid #6f6f6f;
+  border-radius: 10px;
+  padding: 5px 10px;
+
+  .badge {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    background-color: gold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+    &-bronze {
+      background-color: brown;
+    }
+    &-argent {
+      background-color: silver;
+    }
+  }
+}
